@@ -11,17 +11,20 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'detail_berita.dart';
 
 class SearchScreen extends StatefulWidget {
+  // final String searchController;
+  // const SearchScreen ({@required this.searchController});
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
+  // _SearchScreenState ({@required this.searchController});
 
   @override
   void initState() {
     super.initState();
-    getSearchBloc..getSearch("");
+    getSearchBloc..getSearch("jokowi");
   }
 
   @override
@@ -61,56 +64,55 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: const EdgeInsets.only(
                 left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
             child: TextFormField(
-              style: TextStyle(fontSize: 14.0, color: Colors.black),
-              controller: _searchController,
-              onChanged: (changed) {
-                getSearchBloc..getSearch(_searchController.text);
-              },
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                filled: true,
-                fillColor: Colors.grey[100],
-                suffixIcon: _searchController.text.length > 0
-                    ? IconButton(
-                        icon: Icon(
-                          EvaIcons.backspaceOutline,
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                controller: _searchController,
+                onChanged: (changed) {
+                  getSearchBloc..getSearch(_searchController.text);
+                },
+                decoration: InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  filled: true,
+                  fillColor: Colors.grey[100],
+                  suffixIcon: _searchController.text.length > 0
+                      ? IconButton(
+                          icon: Icon(
+                            EvaIcons.backspaceOutline,
+                            color: Colors.grey[500],
+                            size: 16.0,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              _searchController.clear();
+                              getSearchBloc..getSearch(_searchController.text);
+                            });
+                          })
+                      : Icon(
+                          EvaIcons.searchOutline,
                           color: Colors.grey[500],
                           size: 16.0,
                         ),
-                        onPressed: () {
-                          setState(() {
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            _searchController.clear();
-                            getSearchBloc..getSearch(_searchController.text);
-                          });
-                        })
-                    : Icon(
-                        EvaIcons.searchOutline,
-                        color: Colors.grey[500],
-                        size: 16.0,
-                      ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: new BorderSide(
-                        color: Colors.grey[100].withOpacity(0.3)),
-                    borderRadius: BorderRadius.circular(30.0)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: new BorderSide(
-                        color: Colors.grey[100].withOpacity(0.3)),
-                    borderRadius: BorderRadius.circular(30.0)),
-                contentPadding: EdgeInsets.only(left: 15.0, right: 10.0),
-                labelText: "Search...",
-                hintStyle: TextStyle(
-                    fontSize: 14.0,
-                    color: theme.accentColor,
-                    fontWeight: FontWeight.w500),
-                labelStyle: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500),
-              ),
-              autocorrect: false,
-              autovalidateMode: AutovalidateMode.always,
-            ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: new BorderSide(
+                          color: Colors.grey[100].withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(30.0)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: new BorderSide(
+                          color: Colors.grey[100].withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(30.0)),
+                  contentPadding: EdgeInsets.only(left: 15.0, right: 10.0),
+                  labelText: "Search...",
+                  hintStyle: TextStyle(
+                      fontSize: 14.0,
+                      color: theme.accentColor,
+                      fontWeight: FontWeight.w500),
+                  labelStyle: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500),
+                ),
+                autocorrect: false,
+                autovalidateMode: AutovalidateMode.always),
           ),
           Expanded(
               child: StreamBuilder<ArtikelResponse>(
@@ -123,7 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
                 return _buildSourceNewsWidget(snapshot.data);
               } else if (snapshot.hasError) {
-                return buildErrorWidget(snapshot.error);
+                return Container();
               } else {
                 return buildLoadingWidget();
               }

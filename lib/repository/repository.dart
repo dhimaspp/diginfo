@@ -6,7 +6,7 @@ import 'package:diginfo/model/model_response.dart';
 import 'package:flutter/foundation.dart';
 
 class DiginfoRepository {
-  static String mainUrl = "https://newsapi.org/v2/";
+  static String mainUrl = "https://newsapi.org/v2";
   final String apiKey = "4cacb92f67d24ef0b02f956d7b764bbe";
 
   final Dio _dio = Dio();
@@ -19,7 +19,7 @@ class DiginfoRepository {
     var params = {
       "apiKey": apiKey,
       "language": "en",
-      "country": "sg",
+      "country": "us",
       "category": category
     };
 
@@ -58,8 +58,8 @@ class DiginfoRepository {
     }
   }
 
-  Future<ArtikelResponse> search(String query) async {
-    var params = {"apiKey": apiKey, "q": query, "sortBy": "popularity"};
+  Future<ArtikelResponse> search(String value) async {
+    var params = {"apiKey": apiKey, "q": value, "sortBy": "relevancy"};
     try {
       Response response =
           await _dio.get(everythingUrl, queryParameters: params);

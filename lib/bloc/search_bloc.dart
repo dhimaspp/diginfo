@@ -7,8 +7,8 @@ class GetSearchBloc {
   final BehaviorSubject<ArtikelResponse> _subject =
       BehaviorSubject<ArtikelResponse>();
 
-  getSearch(String query) async {
-    ArtikelResponse response = await _diginfoRepository.search(query);
+  getSearch(String value) async {
+    ArtikelResponse response = await _diginfoRepository.search(value);
     _subject.sink.add(response);
   }
 
