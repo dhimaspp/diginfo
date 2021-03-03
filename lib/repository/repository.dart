@@ -60,6 +60,17 @@ class DiginfoRepository {
 
   Future<ArtikelResponse> search(String value) async {
     var params = {"apiKey": apiKey, "q": value, "sortBy": "relevancy"};
+    var response = await _dio.delete(
+      everythingUrl,
+      data: value,
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status < 500;
+        },
+        headers: params,
+      ),
+    );
     try {
       Response response =
           await _dio.get(everythingUrl, queryParameters: params);

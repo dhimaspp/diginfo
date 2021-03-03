@@ -30,6 +30,7 @@ dependencies:
   eva_icons_flutter: ^2.0.1
   flappy_search_bar: ^1.7.2
   flutter_html: ^1.2.0
+  freezed: ^0.12.7
   google_fonts: ^1.1.2
   rxdart: ^0.25.0
   shared_preferences: ^0.5.12+4
@@ -39,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

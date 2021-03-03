@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:diginfo/bloc/diginfo_bloc.dart';
+import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/artikel.dart';
 import 'package:diginfo/model/model_response.dart';
@@ -30,11 +30,15 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
       builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return buildErrorWidget(snapshot.data.error);
+            return BuildErrorWidget(
+              tittle: "terjadi kesalahan",
+            );
           }
           return _buildHotNewsWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return buildErrorWidget(snapshot.error);
+          return BuildErrorWidget(
+            tittle: "terjadi kesalahan",
+          );
         } else {
           return buildLoadingWidget();
         }

@@ -23,3 +23,23 @@ class Artikel {
         date = json["publishedAt"],
         content = json["content"];
 }
+
+class ArtikelResponseV3 {
+  final List<Artikel> artikel;
+
+  ArtikelResponseV3(this.artikel);
+
+  factory ArtikelResponseV3.fromJson(dynamic json) {
+    final artikel = (json as List)
+        .cast<Map<String, Object>>()
+        .map((Map<String, Object> artikel) {
+      return Artikel.fromJson(artikel);
+    }).toList();
+
+    return ArtikelResponseV3(artikel);
+  }
+
+  bool get isPopulated => artikel.isNotEmpty;
+
+  bool get isEmpty => artikel.isEmpty;
+}

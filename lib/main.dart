@@ -1,13 +1,23 @@
+import 'package:diginfo/error_handler/api_repository.dart';
+import 'package:diginfo/repository/repository.dart';
 import 'package:diginfo/screens/main_screen.dart';
 import 'package:diginfo/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(api: ApiRepository()));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  final ApiRepository api;
+
+  MyApp({Key key, this.api}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +26,9 @@ class MyApp extends StatelessWidget {
         primaryColor: theme.primaryColorDark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainScreen(),
+      home: MainScreen(
+        api: widget.api,
+      ),
     );
   }
 }

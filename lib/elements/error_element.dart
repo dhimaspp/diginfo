@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
-Widget buildErrorWidget(String error) {
-  return Container(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          "Terjadi kesalahan internet atau sistem",
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-  );
+class BuildErrorWidget extends StatelessWidget {
+  const BuildErrorWidget({@required this.tittle});
+  final String tittle;
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            tittle,
+            style: theme.textTheme.headline5,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
 }

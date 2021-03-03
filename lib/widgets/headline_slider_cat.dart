@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import "package:carousel_slider/carousel_slider.dart";
+import 'package:diginfo/error_handler/network_exceptions.dart';
 import 'package:flutter/material.dart';
-import 'package:diginfo/bloc/diginfo_bloc.dart';
+import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/artikel_response.dart';
 import 'package:diginfo/model/artikel.dart';
@@ -31,11 +34,15 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
       builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return buildErrorWidget(snapshot.data.error);
+            return BuildErrorWidget(
+              tittle: NetworkExceptions.getErrorMessage(snapshot.error),
+            );
           }
           return _buildHeadlineSliderWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return buildErrorWidget(snapshot.error);
+          return BuildErrorWidget(
+            tittle: NetworkExceptions.getErrorMessage(snapshot.error),
+          );
         } else {
           return buildLoadingWidget();
         }

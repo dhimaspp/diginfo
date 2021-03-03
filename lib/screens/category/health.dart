@@ -14,7 +14,7 @@ class _HealthState extends State<Health> {
     return ListView(
       children: [
         HeadlineSliderCat(
-          category: "entertainment",
+          category: "health",
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),

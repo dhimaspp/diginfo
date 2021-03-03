@@ -2,7 +2,7 @@ import "package:carousel_slider/carousel_slider.dart";
 import 'package:diginfo/model/sumber.dart';
 import 'package:diginfo/screens/component/detail_sumber.dart';
 import 'package:flutter/material.dart';
-import 'package:diginfo/bloc/diginfo_bloc.dart';
+import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/model_response.dart';
 import 'package:diginfo/screens/component/detail_berita.dart';
@@ -33,11 +33,11 @@ class _TopChannelsWidgetState extends State<TopChannelsWidget> {
       builder: (context, AsyncSnapshot<SumberResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return buildErrorWidget(snapshot.data.error);
+            return BuildErrorWidget(tittle: "terjadi kesalahan");
           }
           return _buildSourcesWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return buildErrorWidget(snapshot.error);
+          return BuildErrorWidget(tittle: "terjadi kesalahan");
         } else {
           return buildLoadingWidget();
         }

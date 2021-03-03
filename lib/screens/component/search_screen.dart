@@ -1,8 +1,8 @@
+import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/screens/main_screen.dart';
 import "package:eva_icons_flutter/eva_icons_flutter.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:diginfo/bloc/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/artikel.dart';
 import 'package:diginfo/model/model_response.dart';
@@ -221,7 +221,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             alignment: Alignment.topCenter,
                             placeholder: 'assets/img/placeholder.jpg',
                             image: articles[index].img == null
-                                ? AssetImage("assets/img/placeholder.jpg")
+                                ? "https://via.placeholder.com/150"
                                 : articles[index].img,
                             fit: BoxFit.fitHeight,
                             width: double.maxFinite,
