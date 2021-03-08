@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DetailBerita extends StatefulWidget {
   final Artikel artikel;
-  DetailBerita({Key key, @required this.artikel}) : super(key: key);
+  DetailBerita({Key? key, required this.artikel}) : super(key: key);
   @override
   _DetailBeritaState createState() => _DetailBeritaState(artikel);
 }
@@ -20,7 +20,7 @@ class _DetailBeritaState extends State<DetailBerita> {
     return Scaffold(
       bottomNavigationBar: GestureDetector(
         onTap: () {
-          launch(artikel.url);
+          launch(artikel.url!);
         },
         child: Container(
           height: 48,
@@ -37,7 +37,7 @@ class _DetailBeritaState extends State<DetailBerita> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: theme.accentColor,
-        title: Text(artikel.judul),
+        title: Text(artikel.judul!),
       ),
       body: ListView(
         children: <Widget>[
@@ -47,8 +47,8 @@ class _DetailBeritaState extends State<DetailBerita> {
               alignment: Alignment.topCenter,
               placeholder: "assets/img/placeholder.jpg",
               image: artikel.img == null
-                  ? AssetImage("assets/img/placeholder.jpg")
-                  : artikel.img,
+                  ? AssetImage("assets/img/placeholder.jpg") as String
+                  : artikel.img!,
               fit: BoxFit.cover,
               width: double.maxFinite,
               height: MediaQuery.of(context).size.height * 1 / 3,
@@ -62,18 +62,18 @@ class _DetailBeritaState extends State<DetailBerita> {
                 SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[Text(artikel.date.substring(0, 10))],
+                  children: <Widget>[Text(artikel.date!.substring(0, 10))],
                 ),
                 SizedBox(height: 10.0),
                 GestureDetector(
                   onTap: () {},
-                  child: Text(artikel.judul),
+                  child: Text(artikel.judul!),
                 ),
                 SizedBox(height: 10.0),
-                Text(timeUntil(DateTime.parse(artikel.date))),
+                Text(timeUntil(DateTime.parse(artikel.date!))),
                 SizedBox(height: 10.0),
                 Html(
-                  data: artikel.content,
+                  data: artikel.content!,
                 )
               ],
             ),

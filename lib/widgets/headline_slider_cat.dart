@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import "package:carousel_slider/carousel_slider.dart";
+import 'package:diginfo/bloc/with_network_error_handling_ver/search_state.dart';
 import 'package:diginfo/error_handler/network_exceptions.dart';
+import 'package:diginfo/widgets/event_widget/search_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
@@ -12,7 +14,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class HeadlineSliderCat extends StatefulWidget {
   final String category;
-  const HeadlineSliderCat({@required this.category});
+  const HeadlineSliderCat({required this.category});
   @override
   _HeadlineSliderCatState createState() =>
       _HeadlineSliderCatState(category: category);
@@ -20,7 +22,7 @@ class HeadlineSliderCat extends StatefulWidget {
 
 class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
   final String category;
-  _HeadlineSliderCatState({@required this.category});
+  _HeadlineSliderCatState({required this.category});
   @override
   void initState() {
     super.initState();
@@ -33,16 +35,12 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
       stream: getTopHeadlinesCatBloc.subject.stream,
       builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return BuildErrorWidget(
-              tittle: NetworkExceptions.getErrorMessage(snapshot.error),
-            );
+          if (snapshot.data!.error != null && snapshot.data!.error.length > 0) {
+            return SearchErrorWidget();
           }
-          return _buildHeadlineSliderWidget(snapshot.data);
+          return _buildHeadlineSliderWidget(snapshot.data!);
         } else if (snapshot.hasError) {
-          return BuildErrorWidget(
-            tittle: NetworkExceptions.getErrorMessage(snapshot.error),
-          );
+          return SearchErrorWidget();
         } else {
           return buildLoadingWidget();
         }
@@ -82,9 +80,9 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
                           shape: BoxShape.rectangle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: artikel.img == null
+                              image: (artikel.img == null
                                   ? AssetImage("assets/img/placeholder.jpg")
-                                  : NetworkImage(artikel.img))),
+                                  : NetworkImage(artikel.img!)) as ImageProvider<Object>)),
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -110,7 +108,7 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                artikel.judul,
+                                artikel.judul!,
                                 style: TextStyle(
                                     height: 1.5,
                                     color: Colors.white,
@@ -124,7 +122,7 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
                         bottom: 10.0,
                         left: 10.0,
                         child: Text(
-                          artikel.sumber.namaSumber,
+                          artikel.sumber.namaSumber!,
                           style:
                               TextStyle(color: Colors.white54, fontSize: 9.0),
                         )),
@@ -132,7 +130,7 @@ class _HeadlineSliderCatState extends State<HeadlineSliderCat> {
                         bottom: 10.0,
                         right: 10.0,
                         child: Text(
-                          timeUntil(DateTime.parse(artikel.date)),
+                          timeUntil(DateTime.parse(artikel.date!)),
                           style:
                               TextStyle(color: Colors.white54, fontSize: 9.0),
                         )),

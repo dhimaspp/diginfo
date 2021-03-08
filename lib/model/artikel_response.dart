@@ -13,6 +13,6 @@ class ArtikelResponse {
         error = "";
 
   ArtikelResponse.withError(String errorValue)
-      : artikel = List(),
+      : artikel = [],
         error = errorValue;
 }

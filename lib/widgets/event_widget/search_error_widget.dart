@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SearchErrorWidget extends StatelessWidget {
-  final String tittle;
-  const SearchErrorWidget({Key key, this.tittle}) : super(key: key);
+  final String? tittle;
+  const SearchErrorWidget({Key? key, this.tittle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SearchErrorWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 16.0),
             child: Text(
-              tittle,
+              tittle!,
               style: TextStyle(
                 color: Colors.red[300],
               ),

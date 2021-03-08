@@ -25,12 +25,12 @@ class _HeadlineSliderState extends State<HeadlineSlider> {
       stream: getTopHeadlinesGen.subject.stream,
       builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+          if (snapshot.data!.error != null && snapshot.data!.error.length > 0) {
             return BuildErrorWidget(
               tittle: "terjadi kesalahan",
             );
           }
-          return _buildHeadlineSliderWidget(snapshot.data);
+          return _buildHeadlineSliderWidget(snapshot.data!);
         } else if (snapshot.hasError) {
           return BuildErrorWidget(
             tittle: "terjadi kesalahan",
@@ -74,9 +74,9 @@ class _HeadlineSliderState extends State<HeadlineSlider> {
                           shape: BoxShape.rectangle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: artikel.img == null
+                              image: (artikel.img == null
                                   ? AssetImage("assets/img/placeholder.jpg")
-                                  : NetworkImage(artikel.img))),
+                                  : NetworkImage(artikel.img!)) as ImageProvider<Object>)),
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -102,7 +102,7 @@ class _HeadlineSliderState extends State<HeadlineSlider> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                artikel.judul,
+                                artikel.judul!,
                                 style: TextStyle(
                                     height: 1.5,
                                     color: Colors.white,
@@ -116,7 +116,7 @@ class _HeadlineSliderState extends State<HeadlineSlider> {
                         bottom: 10.0,
                         left: 10.0,
                         child: Text(
-                          artikel.sumber.namaSumber,
+                          artikel.sumber.namaSumber!,
                           style:
                               TextStyle(color: Colors.white54, fontSize: 9.0),
                         )),
@@ -124,7 +124,7 @@ class _HeadlineSliderState extends State<HeadlineSlider> {
                         bottom: 10.0,
                         right: 10.0,
                         child: Text(
-                          timeUntil(DateTime.parse(artikel.date)),
+                          timeUntil(DateTime.parse(artikel.date!)),
                           style:
                               TextStyle(color: Colors.white54, fontSize: 9.0),
                         )),

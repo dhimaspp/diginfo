@@ -8,14 +8,14 @@ class GetSumberBeritaBloc {
   final BehaviorSubject<ArtikelResponse> _subject =
       BehaviorSubject<ArtikelResponse>();
 
-  getSumberBerita(String sumberId) async {
+  getSumberBerita(String? sumberId) async {
     ArtikelResponse response =
         await _diginfoRepository.getSumberBerita(sumberId);
     _subject.sink.add(response);
   }
 
   void drainStream() {
-    _subject.value = null;
+    _subject.close();
   }
 
   @mustCallSuper

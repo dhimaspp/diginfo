@@ -1,9 +1,9 @@
 import 'package:diginfo/model/artikel.dart';
 
 class ArtikelResponseV2 {
-  String status;
-  int totalResults;
-  List<Artikel> artikel;
+  String? status;
+  int? totalResults;
+  List<Artikel>? artikel;
 
   ArtikelResponseV2(this.artikel, this.status, this.totalResults);
 
@@ -11,9 +11,9 @@ class ArtikelResponseV2 {
     status = json['status'];
     totalResults = json['totalResults'];
     if (json['articles'] != null) {
-      artikel = new List<Artikel>();
+      artikel = <Artikel>[];
       json['articles'].forEach((v) {
-        artikel.add(new Artikel.fromJson(v));
+        artikel!.add(new Artikel.fromJson(v));
       });
     }
   }

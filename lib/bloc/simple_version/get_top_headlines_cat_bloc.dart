@@ -15,7 +15,7 @@ class GetTopHeadlinesCatBloc {
   }
 
   void drainStream() {
-    _subject.value = null;
+    _subject.isEmpty;
   }
 
   @mustCallSuper

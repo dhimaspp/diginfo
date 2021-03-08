@@ -1,3 +1,4 @@
+import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/loader.dart';
 import 'package:diginfo/error_handler/api_repository.dart';
 import 'package:diginfo/model/artikel.dart';
@@ -8,16 +9,13 @@ import 'package:diginfo/screens/component/artikel_search.dart';
 import 'package:diginfo/screens/component/search_screen.dart';
 import 'package:diginfo/screens/component/search_screen_v2.dart';
 import 'package:diginfo/theme/theme.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
-import 'package:flappy_search_bar/scaled_tile.dart';
 
 class MainScreen extends StatefulWidget {
-  final ApiRepository api;
+  // final DiginfoRepository? api;
 
-  MainScreen({Key key, this.api}) : super(key: key);
+  // MainScreen({Key? key, this.api}) : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -50,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
   //   getSearchBloc..getSearch("");
   //   // _searchAppBarDelegate = SearchAppBarDelegate();
   // }
-
+  // late DiginfoRepository api;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -63,7 +61,6 @@ class _MainScreenState extends State<MainScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: theme.accentColor,
               elevation: 2,
-              centerTitle: false,
               title: new Text(
                 "Diginfo.",
                 style: TextStyle(
@@ -82,7 +79,8 @@ class _MainScreenState extends State<MainScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchScreenV2(
-                                  api: widget.api,
+                                  bloc: GetSearchBloc(
+                                      apiWrapper: DiginfoRepository()),
                                 )));
                   },
                 )

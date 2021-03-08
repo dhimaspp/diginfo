@@ -11,10 +11,8 @@ import 'package:diginfo/widgets/event_widget/empty_result_widget.dart';
 import 'package:diginfo/widgets/event_widget/search_error_widget.dart';
 import 'package:diginfo/widgets/event_widget/search_intro_widget.dart';
 import 'package:diginfo/widgets/event_widget/search_loading_widget.dart';
-import "package:eva_icons_flutter/eva_icons_flutter.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/artikel.dart';
 import 'package:diginfo/model/model_response.dart';
 import 'package:diginfo/theme/theme.dart';
@@ -22,9 +20,9 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'detail_berita.dart';
 
 class SearchScreenV2 extends StatefulWidget {
-  final ApiRepository api;
+  final GetSearchBloc? bloc;
   // final String searchController;
-  SearchScreenV2({Key key, this.api}) : super(key: key);
+  SearchScreenV2({Key? key, this.bloc}) : super(key: key);
   @override
   _SearchScreenV2State createState() => _SearchScreenV2State();
 }
@@ -32,18 +30,17 @@ class SearchScreenV2 extends StatefulWidget {
 class _SearchScreenV2State extends State<SearchScreenV2> {
   final _searchController = TextEditingController();
   // _SearchScreenState ({@required this.searchController});
-  GetSearchV2Bloc bloc;
   @override
   void initState() {
     super.initState();
-    bloc = GetSearchV2Bloc(widget.api);
+    getSearchBloc..search('jokowi');
   }
 
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   bloc.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +81,9 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
             child: TextFormField(
                 style: TextStyle(fontSize: 14.0, color: Colors.black),
                 controller: _searchController,
-                onChanged: bloc.onTextChanged.add,
+                onChanged: (change) {
+                  getSearchBloc..search(_searchController.text);
+                },
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   filled: true,
@@ -92,7 +91,7 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
                   suffixIcon: _searchController.text.length > 0
                       ? IconButton(
                           icon: Icon(
-                            EvaIcons.backspaceOutline,
+                            Icons.backspace_outlined,
                             color: Colors.grey[500],
                             size: 16.0,
                           ),
@@ -100,21 +99,21 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
                             setState(() {
                               FocusScope.of(context).requestFocus(FocusNode());
                               _searchController.clear();
-                              bloc.onTextChanged.add(_searchController.text);
+                              getSearchBloc..search(_searchController.text);
                             });
                           })
                       : Icon(
-                          EvaIcons.searchOutline,
+                          Icons.search_outlined,
                           color: Colors.grey[500],
                           size: 16.0,
                         ),
                   enabledBorder: OutlineInputBorder(
                       borderSide: new BorderSide(
-                          color: Colors.grey[100].withOpacity(0.3)),
+                          color: Colors.grey[100]!.withOpacity(0.3)),
                       borderRadius: BorderRadius.circular(30.0)),
                   focusedBorder: OutlineInputBorder(
                       borderSide: new BorderSide(
-                          color: Colors.grey[100].withOpacity(0.3)),
+                          color: Colors.grey[100]!.withOpacity(0.3)),
                       borderRadius: BorderRadius.circular(30.0)),
                   contentPadding: EdgeInsets.only(left: 15.0, right: 10.0),
                   labelText: "Search...",
@@ -133,36 +132,57 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
           Expanded(
               child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
-                  child: StreamBuilder<SearchState>(
-                      stream: bloc.state,
-                      initialData: SearchNoTerm(),
+                  child: StreamBuilder<ArtikelResponse>(
+                      stream: getSearchBloc.result,
                       builder: (BuildContext context,
-                          AsyncSnapshot<SearchState> snapshot) {
-                        final state = snapshot.data;
-
-                        if (state is SearchNoTerm) {
-                          return SearchIntro();
-                        } else if (state is SearchEmpty) {
-                          return EmptyWidget();
-                        } else if (state is SearchLoading) {
+                          AsyncSnapshot<ArtikelResponse> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.error != null &&
+                              snapshot.data!.error.length > 0) {
+                            return SearchErrorWidget(
+                              tittle: "error",
+                            );
+                          }
+                          return _buildSourceNewsWidget(snapshot.data!);
+                        } else if (snapshot.hasError) {
+                          return SearchErrorWidget(
+                            tittle: "error aja",
+                          );
+                        } else {
                           return LoadingWidget();
-                        } else if (state is SearchError) {
-                          return SearchErrorWidget();
-                        } else if (state is SearchPopulated) {
-                          return _buildSourceNewsWidget(state.result.artikel);
                         }
+                      }
+                      // final state = snapshot.data;
 
-                        throw Exception(
-                            '${state.runtimeType} is not supported');
-                        // return _buildChild(state);
-                      })))
+                      // if (state == null) {
+                      //   return SearchIntro();
+                      // }
+                      // if (state is SearchNoTerm) {
+                      //   return SearchIntro();
+                      // } else if (state is SearchEmpty) {
+                      //   return EmptyWidget();
+                      // } else if (state is SearchLoading) {
+                      //   return LoadingWidget();
+                      // } else if (state is SearchError) {
+                      //   return SearchErrorWidget();
+                      // } else if (state is SearchPopulated) {
+                      //   return _buildSourceNewsWidget(state.result.artikel);
+                      // }
+                      // // } else if (snapshot.hasData){
+                      // //   return _buildSourceNewsWidget(snapshot.data);
+                      // // }
+
+                      // throw Exception(
+                      //     '${state.runtimeType} is not supported');
+                      // return _buildChild(state);
+                      )))
         ],
       ),
     );
   }
 
-  Widget _buildSourceNewsWidget(List<Artikel> data) {
-    // List<Artikel> data = artikel.artikel;
+  Widget _buildSourceNewsWidget(ArtikelResponse artikel) {
+    List<Artikel> data = artikel.artikel;
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
@@ -178,7 +198,7 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(color: Colors.grey[200], width: 1.0),
+                  top: BorderSide(color: Colors.grey[200]!, width: 1.0),
                 ),
                 color: Colors.white,
               ),
@@ -193,7 +213,7 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(data[index].judul,
+                        Text(data[index].judul!,
                             maxLines: 3,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -209,7 +229,7 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
                                 children: <Widget>[
                                   Text(
                                       timeUntil(
-                                          DateTime.parse(data[index].date)),
+                                          DateTime.parse(data[index].date!)),
                                       style: TextStyle(
                                           color: Colors.black26,
                                           fontWeight: FontWeight.bold,
@@ -231,7 +251,7 @@ class _SearchScreenV2State extends State<SearchScreenV2> {
                           placeholder: 'assets/img/placeholder.jpg',
                           image: data[index].img == null
                               ? "https://via.placeholder.com/150"
-                              : data[index].img,
+                              : data[index].img!,
                           fit: BoxFit.fitHeight,
                           width: double.maxFinite,
                           height: MediaQuery.of(context).size.height * 1 / 3))

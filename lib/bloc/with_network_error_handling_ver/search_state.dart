@@ -8,19 +8,19 @@ import 'package:diginfo/screens/component/search_screen.dart';
 
 // part 'search_state.freezed.dart';
 
-abstract class SearchState {}
+class SearchState {}
 
 class SearchLoading extends SearchState {}
 
 class SearchError extends SearchState {
-  final NetworkExceptions ne;
-  SearchError(this.ne);
+  // final NetworkExceptions ne;
+  // SearchError(this.ne);
 }
 
 class SearchNoTerm extends SearchState {}
 
 class SearchPopulated extends SearchState {
-  final ArtikelResponseV3 result;
+  ArtikelResponse result;
 
   SearchPopulated(this.result);
 }

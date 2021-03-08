@@ -1,11 +1,11 @@
 class Sumber {
-  final String id;
-  final String namaSumber;
-  final String deskripsi;
-  final String url;
-  final String category;
-  final String negara;
-  final String language;
+  final String? id;
+  final String? namaSumber;
+  final String? deskripsi;
+  final String? url;
+  final String? category;
+  final String? negara;
+  final String? language;
 
   Sumber(this.id, this.namaSumber, this.deskripsi, this.url, this.category,
       this.negara, this.language);

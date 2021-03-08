@@ -11,7 +11,7 @@ import 'package:diginfo/theme/theme.dart';
 
 class TopChannelsWidget extends StatefulWidget {
   final String category;
-  const TopChannelsWidget({@required this.category});
+  const TopChannelsWidget({required this.category});
   @override
   _TopChannelsWidgetState createState() =>
       _TopChannelsWidgetState(category: category);
@@ -19,7 +19,7 @@ class TopChannelsWidget extends StatefulWidget {
 
 class _TopChannelsWidgetState extends State<TopChannelsWidget> {
   final String category;
-  _TopChannelsWidgetState({@required this.category});
+  _TopChannelsWidgetState({required this.category});
   @override
   void initState() {
     super.initState();
@@ -32,10 +32,10 @@ class _TopChannelsWidgetState extends State<TopChannelsWidget> {
       stream: getSumber.subject.stream,
       builder: (context, AsyncSnapshot<SumberResponse> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+          if (snapshot.data!.error != null && snapshot.data!.error.length > 0) {
             return BuildErrorWidget(tittle: "terjadi kesalahan");
           }
-          return _buildSourcesWidget(snapshot.data);
+          return _buildSourcesWidget(snapshot.data!);
         } else if (snapshot.hasError) {
           return BuildErrorWidget(tittle: "terjadi kesalahan");
         } else {
@@ -88,7 +88,7 @@ class _TopChannelsWidgetState extends State<TopChannelsWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Hero(
-                      tag: sumber[index].id,
+                      tag: sumber[index].id!,
                       child: Container(
                           width: 50.0,
                           height: 50.0,
@@ -115,7 +115,7 @@ class _TopChannelsWidgetState extends State<TopChannelsWidget> {
                       height: 10.0,
                     ),
                     Text(
-                      sumber[index].namaSumber,
+                      sumber[index].namaSumber!,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -128,7 +128,7 @@ class _TopChannelsWidgetState extends State<TopChannelsWidget> {
                       height: 3.0,
                     ),
                     Text(
-                      sumber[index].category,
+                      sumber[index].category!,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(

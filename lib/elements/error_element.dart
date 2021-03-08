@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BuildErrorWidget extends StatelessWidget {
-  const BuildErrorWidget({@required this.tittle});
+  const BuildErrorWidget({required this.tittle});
   final String tittle;
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);

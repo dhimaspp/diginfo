@@ -9,14 +9,14 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class HotNewsWidget extends StatefulWidget {
   final String query;
-  const HotNewsWidget({@required this.query});
+  const HotNewsWidget({required this.query});
   @override
   _HotNewsWidgetState createState() => _HotNewsWidgetState(query: query);
 }
 
 class _HotNewsWidgetState extends State<HotNewsWidget> {
   final String query;
-  _HotNewsWidgetState({@required this.query});
+  _HotNewsWidgetState({required this.query});
   @override
   void initState() {
     super.initState();
@@ -29,12 +29,12 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
       stream: getHotNewsBloc.subject.stream,
       builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+          if (snapshot.data!.error != null && snapshot.data!.error.length > 0) {
             return BuildErrorWidget(
               tittle: "terjadi kesalahan",
             );
           }
-          return _buildHotNewsWidget(snapshot.data);
+          return _buildHotNewsWidget(snapshot.data!);
         } else if (snapshot.hasError) {
           return BuildErrorWidget(
             tittle: "terjadi kesalahan",
@@ -65,7 +65,7 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
       );
     } else
       return Container(
-        height: artikel.length / 2 * 210.0,
+        height: artikel.length / 2 * 200,
         padding: EdgeInsets.all(5.0),
         child: new GridView.builder(
           physics: NeverScrollableScrollPhysics(),
@@ -91,7 +91,7 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey[100],
+                        color: Colors.grey[100]!,
                         blurRadius: 5.0,
                         spreadRadius: 1.0,
                         offset: Offset(
@@ -104,24 +104,24 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
                   child: Column(
                     children: <Widget>[
                       AspectRatio(
-                        aspectRatio: 16 / 9,
+                        aspectRatio: 16 / 11,
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(5.0),
                                   topRight: Radius.circular(5.0)),
                               image: DecorationImage(
-                                  image: artikel[index].img == null
+                                  image: (artikel[index].img == null
                                       ? AssetImage("aseets/img/placeholder.jpg")
-                                      : NetworkImage(artikel[index].img),
+                                      : NetworkImage(artikel[index].img!)) as ImageProvider<Object>,
                                   fit: BoxFit.cover)),
                         ),
                       ),
                       Container(
                         padding: EdgeInsets.only(
-                            left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
+                            left: 10.0, right: 10.0, top: 7.0, bottom: 7.0),
                         child: Text(
-                          artikel[index].judul,
+                          artikel[index].judul!,
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           style: TextStyle(height: 1.3, fontSize: 15.0),
@@ -137,24 +137,24 @@ class _HotNewsWidgetState extends State<HotNewsWidget> {
                             color: Colors.black12,
                           ),
                           Container(
-                            width: 30,
+                            width: 200,
                             height: 3.0,
                             color: theme.accentColor,
                           ),
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              artikel[index].sumber.namaSumber,
+                              artikel[index].sumber.namaSumber!,
                               style: TextStyle(
                                   color: theme.accentColor, fontSize: 9.0),
                             ),
                             Text(
-                              timeUntil(DateTime.parse(artikel[index].date)),
+                              timeUntil(DateTime.parse(artikel[index].date!)),
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 9.0),
                             )

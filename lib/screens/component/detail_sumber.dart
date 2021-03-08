@@ -11,7 +11,7 @@ import 'detail_berita.dart';
 
 class SumberDetail extends StatefulWidget {
   final Sumber sumber;
-  SumberDetail({Key key, @required this.sumber}) : super(key: key);
+  SumberDetail({Key? key, required this.sumber}) : super(key: key);
   @override
   _SourceDetailState createState() => _SourceDetailState(sumber);
 }
@@ -56,7 +56,7 @@ class _SourceDetailState extends State<SumberDetail> {
             child: Column(
               children: [
                 Hero(
-                  tag: sumber.id,
+                  tag: sumber.id!,
                   child: SizedBox(
                       height: 80.0,
                       width: 80.0,
@@ -74,7 +74,7 @@ class _SourceDetailState extends State<SumberDetail> {
                   height: 5.0,
                 ),
                 Text(
-                  sumber.namaSumber,
+                  sumber.namaSumber!,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
@@ -84,7 +84,7 @@ class _SourceDetailState extends State<SumberDetail> {
                   height: 5.0,
                 ),
                 Text(
-                  sumber.deskripsi,
+                  sumber.deskripsi!,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12.0,
@@ -98,16 +98,16 @@ class _SourceDetailState extends State<SumberDetail> {
             stream: getSumberBeritaBloc.subject.stream,
             builder: (context, AsyncSnapshot<ArtikelResponse> snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data.error != null &&
-                    snapshot.data.error.length > 0) {
+                if (snapshot.data!.error != null &&
+                    snapshot.data!.error.length > 0) {
                   return BuildErrorWidget(
-                    tittle: snapshot.data.error,
+                    tittle: snapshot.data!.error,
                   );
                 }
-                return _buildSourceNewsWidget(snapshot.data);
+                return _buildSourceNewsWidget(snapshot.data!);
               } else if (snapshot.hasError) {
                 return BuildErrorWidget(
-                  tittle: snapshot.data.error,
+                  tittle: snapshot.data!.error,
                 );
               } else {
                 return buildLoadingWidget();
@@ -152,7 +152,7 @@ class _SourceDetailState extends State<SumberDetail> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border(
-                    top: BorderSide(color: Colors.grey[200], width: 1.0),
+                    top: BorderSide(color: Colors.grey[200]!, width: 1.0),
                   ),
                   color: Colors.white,
                 ),
@@ -167,7 +167,7 @@ class _SourceDetailState extends State<SumberDetail> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(artikel[index].judul,
+                          Text(artikel[index].judul!,
                               maxLines: 3,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -183,7 +183,7 @@ class _SourceDetailState extends State<SumberDetail> {
                                   children: <Widget>[
                                     Text(
                                         timeUntil(DateTime.parse(
-                                            artikel[index].date)),
+                                            artikel[index].date!)),
                                         style: TextStyle(
                                             color: Colors.black26,
                                             fontWeight: FontWeight.bold,
@@ -204,8 +204,8 @@ class _SourceDetailState extends State<SumberDetail> {
                             alignment: Alignment.topCenter,
                             placeholder: 'assets/img/placeholder.jpg',
                             image: artikel[index].img == null
-                                ? AssetImage("assets/img/placeholder.jpg")
-                                : artikel[index].img,
+                                ? AssetImage("assets/img/placeholder.jpg") as String
+                                : artikel[index].img!,
                             fit: BoxFit.fitHeight,
                             width: double.maxFinite,
                             height: MediaQuery.of(context).size.height * 1 / 3))

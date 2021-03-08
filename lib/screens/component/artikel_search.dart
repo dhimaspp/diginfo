@@ -1,3 +1,4 @@
+import 'package:diginfo/screens/category/category.dart';
 import 'package:flutter/material.dart';
 
 class ArtikelSearch extends SearchDelegate {
@@ -25,7 +26,7 @@ class ArtikelSearch extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    IconButton(
+    return IconButton(
       tooltip: 'Back',
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,

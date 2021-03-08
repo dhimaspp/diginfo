@@ -13,6 +13,6 @@ class SumberResponse {
         error = "";
 
   SumberResponse.withError(String errorValue)
-      : sumber = List(),
+      : sumber = [],
         error = errorValue;
 }

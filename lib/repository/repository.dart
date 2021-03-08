@@ -66,7 +66,7 @@ class DiginfoRepository {
       options: Options(
         followRedirects: false,
         validateStatus: (status) {
-          return status < 500;
+          return status! < 500;
         },
         headers: params,
       ),
@@ -93,7 +93,7 @@ class DiginfoRepository {
     }
   }
 
-  Future<ArtikelResponse> getSumberBerita(String sumberId) async {
+  Future<ArtikelResponse> getSumberBerita(String? sumberId) async {
     var params = {"apiKey": apiKey, "sources": sumberId};
     try {
       Response response =

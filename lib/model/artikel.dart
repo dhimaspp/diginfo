@@ -2,13 +2,13 @@ import 'package:diginfo/model/sumber.dart';
 
 class Artikel {
   final Sumber sumber;
-  final String penulis;
-  final String judul;
-  final String deskripsi;
-  final String url;
-  final String img;
-  final String date;
-  final String content;
+  final String? penulis;
+  final String? judul;
+  final String? deskripsi;
+  final String? url;
+  final String? img;
+  final String? date;
+  final String? content;
 
   Artikel(this.sumber, this.penulis, this.judul, this.deskripsi, this.url,
       this.img, this.date, this.content);

@@ -14,7 +14,7 @@ class GetSumberBloc {
   }
 
   void drainStream() {
-    _subject.value = null;
+    _subject.close();
   }
 
   @mustCallSuper

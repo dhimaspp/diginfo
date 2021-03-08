@@ -4,14 +4,12 @@ import 'package:diginfo/screens/main_screen.dart';
 import 'package:diginfo/theme/theme.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp(api: ApiRepository()));
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-  final ApiRepository api;
+  // late DiginfoRepository? api;
 
-  MyApp({Key key, this.api}) : super(key: key);
+  // MyApp({Key? key, this.api}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -26,9 +24,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: theme.primaryColorDark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainScreen(
-        api: widget.api,
-      ),
+      home: MainScreen(),
     );
   }
 }
