@@ -4,4 +4,4 @@ Kumpulan berita dari berbagai sumber dalam dan luar negeri.
 
 ## Screenshot
 
-sss
+[![Diginfo](https://img.youtube.com/vi/YYFjGepoltk/hqdefault.jpg)](https://youtu.be/YYFjGepoltk)
