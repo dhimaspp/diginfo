@@ -1,15 +1,6 @@
 import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
-import 'package:diginfo/bloc/with_network_error_handling_ver/search_bloc_v2.dart';
-import 'package:diginfo/bloc/with_network_error_handling_ver/search_state.dart';
-import 'package:diginfo/error_handler/api_repository.dart';
-import 'package:diginfo/error_handler/network_exceptions.dart';
-import 'package:diginfo/model_v2/model_response.dart';
-import 'package:diginfo/repository/repository.dart';
-import 'package:diginfo/screens/component/search_screen.dart';
 import 'package:diginfo/screens/main_screen.dart';
-import 'package:diginfo/widgets/event_widget/empty_result_widget.dart';
 import 'package:diginfo/widgets/event_widget/search_error_widget.dart';
-import 'package:diginfo/widgets/event_widget/search_intro_widget.dart';
 import 'package:diginfo/widgets/event_widget/search_loading_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-import 'package:diginfo/screens/category/category.dart';
 import 'package:flutter/material.dart';
 
 class ArtikelSearch extends SearchDelegate {

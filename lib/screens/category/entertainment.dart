@@ -52,6 +52,5 @@ class _EntertainmentState extends State<Entertainment> {
         ),
       ],
     );
-    ;
   }
 }

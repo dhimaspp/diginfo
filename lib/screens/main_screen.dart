@@ -1,12 +1,6 @@
 import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
-import 'package:diginfo/elements/loader.dart';
-import 'package:diginfo/error_handler/api_repository.dart';
-import 'package:diginfo/model/artikel.dart';
-import 'package:diginfo/model/artikel_response.dart';
 import 'package:diginfo/repository/repository.dart';
 import 'package:diginfo/screens/category/category.dart';
-import 'package:diginfo/screens/component/artikel_search.dart';
-import 'package:diginfo/screens/component/search_screen.dart';
 import 'package:diginfo/screens/component/search_screen_v2.dart';
 import 'package:diginfo/theme/theme.dart';
 import 'package:flutter/material.dart';

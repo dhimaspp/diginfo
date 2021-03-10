@@ -1,8 +1,4 @@
-import 'dart:math';
-
 import "package:carousel_slider/carousel_slider.dart";
-import 'package:diginfo/bloc/with_network_error_handling_ver/search_state.dart';
-import 'package:diginfo/error_handler/network_exceptions.dart';
 import 'package:diginfo/widgets/event_widget/search_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';

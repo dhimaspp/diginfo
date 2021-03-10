@@ -60,6 +60,7 @@ class DiginfoRepository {
 
   Future<ArtikelResponse> search(String value) async {
     var params = {"apiKey": apiKey, "q": value, "sortBy": "relevancy"};
+    // ignore: unused_local_variable
     var response = await _dio.delete(
       everythingUrl,
       data: value,

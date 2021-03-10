@@ -1,5 +1,3 @@
-import 'package:diginfo/error_handler/api_repository.dart';
-import 'package:diginfo/repository/repository.dart';
 import 'package:diginfo/screens/main_screen.dart';
 import 'package:diginfo/theme/theme.dart';
 import 'package:flutter/material.dart';

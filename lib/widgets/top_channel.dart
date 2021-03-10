@@ -1,12 +1,9 @@
-import "package:carousel_slider/carousel_slider.dart";
 import 'package:diginfo/model/sumber.dart';
 import 'package:diginfo/screens/component/detail_sumber.dart';
 import 'package:flutter/material.dart';
 import 'package:diginfo/bloc/simple_version/diginfo_bloc.dart';
 import 'package:diginfo/elements/element.dart';
 import 'package:diginfo/model/model_response.dart';
-import 'package:diginfo/screens/component/detail_berita.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:diginfo/theme/theme.dart';
 
 class TopChannelsWidget extends StatefulWidget {
