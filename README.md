@@ -6,4 +6,4 @@ Kumpulan berita dari berbagai sumber dalam dan luar negeri.
 
 [![Diginfo](https://img.youtube.com/vi/YYFjGepoltk/hqdefault.jpg)](https://youtu.be/YYFjGepoltk)
 
-Klik untuk melihat video
+Klik pada gambar untuk melihat video
